@@ -15,20 +15,16 @@
  *  the Licence.
  */
 
-package hello;
+package eu.europeana.apikey.client;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
 /**
- * Created by luthien on 07/03/2017.
+ * Created by luthien on 10/05/2017.
  */
+public interface FormValues {
 
-@RestController
-public class HelloController {
+    String[] demokeys = { "ApiKey2", "ApiKey3", "ApiKey4", "ApiKey5", "ApiKey6", "ApiKey7", "ApiKey1" };
+    String[] apis = { "search", "entity", "annotation", "contradiction", "metanoia", "" };
+    String[] methods = { "", "read", "write", "delete", "bling" };
 
-    @RequestMapping("/")
-    public String index() {
-        return "Wickie willa Koeckebacke!";
-    }
 
 }

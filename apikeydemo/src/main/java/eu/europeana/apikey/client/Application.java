@@ -15,7 +15,7 @@
  *  the Licence.
  */
 
-package hello;
+package eu.europeana.apikey.client;
 
 import java.util.Arrays;
 

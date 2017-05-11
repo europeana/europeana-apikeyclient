@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gettin' funky over ApiKey validation!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{/demo}" th:object="${demo}" method="post">
+    <p>Choose ApiKey to validate:
+        <select th:field="*{apikey}">
+            <option th:each="demokey : ${demokeys}"
+                    th:value="${demokey}"
+                    th:text="${demokey}">ApiKey2</option>
+        </select></p>
+    <p>Choose an API for which to validate the selected ApiKey:
+        <select th:field="*{api}">
+            <option th:each="api : ${apis}"
+                    th:value="${api}"
+                    th:text="${api}">search</option>
+        </select></p>
+    <p>Choose the method for which you wish to validate the selected ApiKey on the selected API:
+        <select th:field="*{method}">
+            <option th:each="method : ${methods}"
+                    th:value="${method}"
+                    th:text="${method}"></option>
+        </select></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

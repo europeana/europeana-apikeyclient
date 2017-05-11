@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gettin' funky over ApiKey validation part two!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<h2 style="color:red"><span th:text="${demo.message}" /></h2>
+<p th:text="'Apikey: ' + ${demo.apikey}" />
+<p th:text="'Api: ' + ${demo.api}" />
+<p th:text="'Method: ' + ${demo.method}" />
+<p th:text="'Return status: ' + ${demo.status}" />
+<p th:text="'Remaining # of requests for current period: ' + ${demo.remaining}" />
+<p th:text="'Seconds remaining to reset: ' + ${demo.secondsToReset}" />
+Please, click <a href="/demo">here</a> to try again. <em>Do</em> have a nice day.
+</body>
+</html>
