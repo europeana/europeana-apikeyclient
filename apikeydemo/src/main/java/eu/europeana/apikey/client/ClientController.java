@@ -33,7 +33,7 @@ import java.util.Arrays;
 public class ClientController {
 
     private static final String ADMINAPIKEY = "ApiKey1";
-    private static final String ADMINSECRETKEY = "SecretKey1";
+    private static final String ADMINSECRETKEY = "PrivateKey1";
 
     @GetMapping("/demo")
     public String demoForm(Model model) {
