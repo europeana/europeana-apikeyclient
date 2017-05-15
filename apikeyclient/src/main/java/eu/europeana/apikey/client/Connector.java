@@ -75,7 +75,6 @@ public class Connector {
             response = client.execute(request);
         } catch (IOException e) {
             validationResult.setSuccess(false);
-//            e.printStackTrace();
         }
         if (response != null) validationResult.setSuccess(true);
 

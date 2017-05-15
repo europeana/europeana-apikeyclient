@@ -1,0 +1,61 @@
+== Europeana-Apikeyclient: an apikey-service client & demo app
+
+.There are two parts to this project:
+. apikeyclient
+. apikeydemo
+
+.1) Apikeyclient
+This project consists of three classes:
+
+* Connector.java
+* ValidationRequest.java
+* ValidationResult.java
+
+The Connector class has one method: `validateApiKey`, accepting a `ValidationRequest`
+as input and returns a `ValidationResult`.
+
+The `ValidationRequest` class has two constructors. One accepts all five available parameters:
+
+* new ValidationRequest(String `adminApikey`, String `adminSecretkey`, String `apikey`, String `api`,
+ String `method`)
+
+while the other one omits the `method` parameter.
+You can also set all parameters separately.
+For now the Apikeyservice's URL is hard-coded to the currently deployed instance on Pivotal.
+
+The ValidationResult class contains the results of the ApiKey service query:
+
+* `returnStatus`: String containting the HTTP Status returned by the Apikeyservice;
+* `remaining`: String representing the number of available request left;
+* `secondsToReset`: String representing the number of seconds until the number of used request is reset;
+* `message`: String containing eventual error message, e.g., if a connection cannot be made;
+* `success`: boolean representing whether the query was successful
+
+.2) Apikeydemo
+
+This is a Spring Boot & Thymeleaf web-app that runs locally on port 8080, path /demo:
+
+http://localhost:8080/demo[http://localhost:8080/demo]
+
+It displays a form titled "Apikey Service client demo app" with three dropdown-lists:
+
+. Apikey: one to select between a number of test Apikeys that exist in the database of the Apikeyservice;
+. api: another one to choose between several (Europeana) Api's, with an empty and some erroneous entries to also test out;
+. method: and one to select the "method" parameter: `read`, `write`, nothing, or some erroneous values.
+
+The demo app uses the `Apikeyclient` classes to connect to the Apikeyservice and displays the results on
+a second page.
+
+You can see how to use the `Apikeyclient` by looking at the `ClientController` and `Demo` java classes in the Apikeydemo app.
+
+
+Note that for now, the `adminApikey` and `adminSecretkey` are set to `ApiKey1` and `SecretKey`.
+
+
+=== Requirements
+Check out the project on Github, issue a maven `mvn clean install` for both sub-projects and then run the demo with
+ the maven `mvn spring-boot:run` command.
+
+You will most likely need Java 8.
+
+
