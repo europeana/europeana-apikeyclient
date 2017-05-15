@@ -1,31 +1,60 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Gettin' funky over ApiKey validation!</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <style>
+        body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13px; color:#333; margin: 0px; padding: 0px;}
+        p {padding: 10px 10px 10px 10px; margin: 0px 0px 0px 0px;}
+        #wrapper {width: 800px;}
+        #headerwrap {width: 800px; float: left;  margin: 0 auto;}
+        #header { height: 100px; background-color: #0975AC; margin: 0px; }
+        #header h2 {color: #FFFFFF; padding: 30px 20px 20px 20px;}
+        #contentwrap { width: 800px; float: left; margin: 0 auto; }
+        #content {  width: 770px; background: #FFFFFF; border-radius: 10px;  border: 1px solid #0975AC; margin: 15px; }
+        #footerwrap {  width: 800px; float: left; margin: 0 auto; clear: both; }
+        #footer {  height: 80px; background-color: #E7E7E7; margin: 0px; color: #0975AC;}
+        #footer p {padding: 30px 20px 20px 20px; }
+    </style>
 </head>
 <body>
-<h1>Form</h1>
-<form action="#" th:action="@{/demo}" th:object="${demo}" method="post">
-    <p>Choose ApiKey to validate:
-        <select th:field="*{apikey}">
-            <option th:each="demokey : ${demokeys}"
-                    th:value="${demokey}"
-                    th:text="${demokey}">ApiKey2</option>
-        </select></p>
-    <p>Choose an API for which to validate the selected ApiKey:
-        <select th:field="*{api}">
-            <option th:each="api : ${apis}"
-                    th:value="${api}"
-                    th:text="${api}">search</option>
-        </select></p>
-    <p>Choose the method for which you wish to validate the selected ApiKey on the selected API:
-        <select th:field="*{method}">
-            <option th:each="method : ${methods}"
-                    th:value="${method}"
-                    th:text="${method}"></option>
-        </select></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
+<div id="wrapper">
+    <div id="headerwrap">
+        <div id="header">
+            <h2>Apikey Service client demo app</h2>
+        </div>
+    </div>
+    <div id="contentwrap">
+        <div id="content">
+            <form action="#" th:action="@{/demo}" th:object="${demo}" method="post">
+                <p>Choose ApiKey to validate:
+                    <select th:field="*{apikey}">
+                        <option th:each="demokey : ${demokeys}"
+                                th:value="${demokey}"
+                                th:text="${demokey}">ApiKey2</option>
+                    </select></p>
+                <p>Choose an API for which to validate the selected ApiKey:
+                    <select th:field="*{api}">
+                        <option th:each="api : ${apis}"
+                                th:value="${api}"
+                                th:text="${api}">search</option>
+                    </select></p>
+                <p>Choose the method for which you wish to validate the selected ApiKey on the selected API:
+                    <select th:field="*{method}">
+                        <option th:each="method : ${methods}"
+                                th:value="${method}"
+                                th:text="${method}"></option>
+                    </select></p>
+                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
+        </div>
+    </div>
+    <div id="footerwrap">
+        <div id="footer">
+            <p>No claims can be claimed from this disclaimer. Keep in a dark cool place.</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

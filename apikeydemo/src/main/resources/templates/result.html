@@ -1,18 +1,48 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Gettin' funky over ApiKey validation part two!</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<h1>Result</h1>
-<h2 style="color:red"><span th:text="${demo.message}" /></h2>
-<p th:text="'Apikey: ' + ${demo.apikey}" />
-<p th:text="'Api: ' + ${demo.api}" />
-<p th:text="'Method: ' + ${demo.method}" />
-<p th:text="'Return status: ' + ${demo.status}" />
-<p th:text="'Remaining # of requests for current period: ' + ${demo.remaining}" />
-<p th:text="'Seconds remaining to reset: ' + ${demo.secondsToReset}" />
-Please, click <a href="/demo">here</a> to try again. <em>Do</em> have a nice day.
-</body>
+    <head>
+        <title>Gettin' funky over ApiKey validation part two!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <style>
+            body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13px; color:#333; margin: 0px; padding: 0px;}
+            p {padding: 10px 10px 10px 10px; margin: 0px 0px 0px 0px;}
+            #wrapper {width: 800px;}
+            #headerwrap {width: 800px; float: left;  margin: 0 auto;}
+            #header { height: 100px; background-color: #0975AC; margin: 0px; }
+            #header h2 {color: #FFFFFF; padding: 15px 20px 0px 20px;}
+            #header h3 {color: #FF4040; padding: 0px 20px 0px 20px;}
+            #contentwrap { width: 800px; float: left; margin: 0 auto; }
+            #content {  width: 770px; background: #FFFFFF; border-radius: 10px;  border: 1px solid #0975AC; margin: 15px; }
+            #footerwrap {  width: 800px; float: left; margin: 0 auto; clear: both; }
+            #footer {  height: 80px; background-color: #E7E7E7; margin: 0px; color: #0975AC;}
+            #footer p {padding: 30px 20px 20px 20px; }
+            .values {color: #8040FF; font-weight: 800}
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="headerwrap">
+                <div id="header">
+                    <h2>Apikey Service response</h2>
+                    <h3><span th:text="${demo.message}" /></h3>
+                </div>
+                <div id="contentwrap">
+                    <div id="content">
+                        <p th:text="'Apikey: ' + ${demo.apikey}" />
+                        <p th:text="'Api: ' + ${demo.api}" />
+                        <p th:text="'Method: ' + ${demo.method}" />
+                        <p th:text="'Return status: HTTP ' + ${demo.status}" />
+                        <p th:text="'Remaining # of requests for current period: ' + ${demo.remaining}" />
+                        <p th:text="'Seconds remaining to reset: ' + ${demo.secondsToReset}" />
+                    </div>
+                </div>
+                <div id="footerwrap">
+                    <div id="footer">
+                        <p>Please, click <a href="/demo">here</a> to try again. <em>Do</em> have a nice day.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

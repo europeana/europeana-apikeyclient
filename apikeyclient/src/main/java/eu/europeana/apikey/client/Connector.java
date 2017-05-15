@@ -18,14 +18,22 @@
 package eu.europeana.apikey.client;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by luthien on 11/05/2017.
@@ -33,14 +41,26 @@ import java.nio.charset.Charset;
 public class Connector {
 
 
-    //    private static final String APIKEYSERVICEURL = "https://apikeyservice.cfapps.io/apikey";
-    private static final String APIKEYSERVICEURL = "http://localhost:8081/apikey";
+        private static final String APIKEYSERVICEURL = "https://apikeyservice.cfapps.io/apikey";
+//    private static final String APIKEYSERVICEURL = "http://localhost:8081/apikey";
 
     public ValidationResult validateApiKey(ValidationRequest validationRequest){
         ValidationResult validationResult = new ValidationResult();
         String url = APIKEYSERVICEURL + "/" + validationRequest.getApikey() + "/validate";
 
+        List<NameValuePair> params = new ArrayList<>(2);
+        params.add(new BasicNameValuePair("api", validationRequest.getApi()));
+        if (StringUtils.isNotBlank(validationRequest.getMethod())) {
+            params.add(new BasicNameValuePair("method", validationRequest.getMethod()));
+        }
+
         HttpPost request = new HttpPost(url);
+        try {
+            request.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         String auth = validationRequest.getAdminApikey() + ":" + validationRequest.getAdminSecretkey();
         byte[] encodedAuth = Base64.encodeBase64(
                 auth.getBytes(Charset.forName("ISO-8859-1")));

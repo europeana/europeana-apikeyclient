@@ -33,7 +33,7 @@ public class Demo {
     private String message = null;
 
     public String getApi() {
-        return StringUtils.isNotBlank(api) ? api : "--";
+        return StringUtils.isNotBlank(api) ? api : "";
     }
 
     public void setApi(String api) {
@@ -41,7 +41,7 @@ public class Demo {
     }
 
     public String getMethod() {
-        return StringUtils.isNotBlank(method) ? method : "--";
+        return StringUtils.isNotBlank(method) ? method : "";
     }
 
     public void setMethod(String method) {
@@ -82,6 +82,37 @@ public class Demo {
 
     public String getMessage() {
         return message;
+    }
+
+    public void setStatusHumanReadable(){
+        switch (status) {
+            case "204":
+                status += " NO CONTENT: Apikey OK";
+                break;
+            case "429":
+                status += " TOO MANY REQUESTS: try again after midnight";
+                break;
+            case "410":
+                status += " GONE: this ApiKey is deprecated";
+                break;
+            case "404":
+                status += " NOT FOUND: ApiKey does not exist";
+                break;
+            case "400":
+                status += " BAD REQUEST: silly parameter(s) supplied";
+                break;
+            case "200":
+                status += " OK";
+                break;
+            case "418":
+                status += " I'M A TEAPOT... glurgl";
+                break;
+            case "202":
+                status += " ACCEPTED. Cool.";
+                break;
+            default:
+                status += "99.999999999999999999 +++ OUT OF CHEESE ERROR +++ REDO FROM START +++";
+        }
     }
 
     public void setMessage(String message) {

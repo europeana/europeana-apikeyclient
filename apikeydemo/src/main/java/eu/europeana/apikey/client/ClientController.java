@@ -54,6 +54,9 @@ public class ClientController {
             if (StringUtils.isNotBlank(result.getReturnStatus())) demo.setStatus(result.getReturnStatus());
             if (StringUtils.isNotBlank(result.getRemaining())) demo.setRemaining(result.getRemaining());
             if (StringUtils.isNotBlank(result.getSecondsToReset())) demo.setSecondsToReset(result.getSecondsToReset());
+            if (StringUtils.isBlank(demo.getApi())) demo.setApi("none");
+            if (StringUtils.isBlank(demo.getMethod())) demo.setMethod("nothing");
+            demo.setStatusHumanReadable(); // user experience management measure
         } else {
             demo.setMessage("Error: could not connect to ApiKey Service");
         }
