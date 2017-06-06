@@ -5,7 +5,7 @@
 . apikeydemo
 
 .1) Apikeyclient
-This project consists of three classes:
+The Apikeyclient consists of three classes:
 
 * Connector.java
 * ValidationRequest.java
@@ -21,15 +21,17 @@ The `ValidationRequest` class has two constructors. One accepts all five availab
 
 while the other one omits the `method` parameter.
 You can also set all parameters separately.
-For now the Apikeyservice's URL is hard-coded to the currently deployed instance on Pivotal.
+For now  is hard-coded to the currently deployed instance on Pivotal.
 
 The ValidationResult class contains the results of the ApiKey service query:
 
 * `returnStatus`: String containting the HTTP Status returned by the Apikeyservice;
 * `remaining`: String representing the number of available request left;
 * `secondsToReset`: String representing the number of seconds until the number of used request is reset;
-* `message`: String containing eventual error message, e.g., if a connection cannot be made;
-* `success`: boolean representing whether the query was successful
+* `message`: String containing possible error messages
+* `connected`: whether connecting to the ApiKey service succeeded
+
+The Apikeyservice URL is read from the `apikeyserviceurl` property in `resources/config.properties`
 
 .2) Apikeydemo
 

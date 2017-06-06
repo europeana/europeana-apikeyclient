@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -48,17 +50,26 @@ public class ClientController {
     public String demoSubmit(@ModelAttribute Demo demo) {
         ValidationRequest request = new ValidationRequest(ADMINAPIKEY, ADMINSECRETKEY, demo.getApikey(), demo.getApi());
         if (StringUtils.isNotBlank(demo.getMethod())) request.setMethod(demo.getMethod());
-        Connector connector = new Connector();
-        ValidationResult result = connector.validateApiKey(request);
-        if (result.isSuccess()){
-            if (StringUtils.isNotBlank(result.getReturnStatus())) demo.setStatus(result.getReturnStatus());
-            if (StringUtils.isNotBlank(result.getRemaining())) demo.setRemaining(result.getRemaining());
-            if (StringUtils.isNotBlank(result.getSecondsToReset())) demo.setSecondsToReset(result.getSecondsToReset());
-            if (StringUtils.isBlank(demo.getApi())) demo.setApi("none");
-            if (StringUtils.isBlank(demo.getMethod())) demo.setMethod("nothing");
-            demo.setStatusHumanReadable(); // user experience management measure
-        } else {
-            demo.setMessage("Error: could not connect to ApiKey Service");
+        Connector connector;
+        try {
+            connector = new Connector();
+            ValidationResult result = connector.validateApiKey(request);
+            if (result.hasConnected()){
+                if (StringUtils.isNotBlank(result.getReturnStatus())) demo.setStatus(result.getReturnStatus());
+                if (StringUtils.isNotBlank(result.getRemaining())) demo.setRemaining(result.getRemaining());
+                if (StringUtils.isNotBlank(result.getSecondsToReset())) demo.setSecondsToReset(result.getSecondsToReset());
+                if (StringUtils.isBlank(demo.getApi())) demo.setApi("none");
+                if (StringUtils.isBlank(demo.getMethod())) demo.setMethod("nothing");
+                if (result.isPageNotFound_404()){
+                    demo.setPageNotFound_404(true);
+                    demo.setMessage("Error: Apikeyservice not found on server");
+                }
+                demo.setStatusHumanReadable(); // user experience management measure
+            } else {
+                demo.setMessage("Error: could not connect to ApiKey Service");
+            }
+        } catch (IOException e) {
+            demo.setMessage(e.getMessage());
         }
         return "result";
     }

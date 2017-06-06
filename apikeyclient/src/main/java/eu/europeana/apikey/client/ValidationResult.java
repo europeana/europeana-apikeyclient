@@ -26,7 +26,8 @@ public class ValidationResult {
     private String remaining;
     private String secondsToReset;
     private String message;
-    private boolean success = false;
+    private boolean connected        = false;
+    private boolean pageNotFound_404 = false;
 
     public String getReturnStatus() {
         return returnStatus;
@@ -44,7 +45,6 @@ public class ValidationResult {
         this.remaining = remaining;
     }
 
-
     public String getSecondsToReset() {
         return secondsToReset;
     }
@@ -61,11 +61,19 @@ public class ValidationResult {
         this.message = message;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public boolean hasConnected() {
+        return connected;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
+    public boolean isPageNotFound_404() {
+        return pageNotFound_404;
+    }
+
+    public void setPageNotFound_404(boolean pageNotFound_404) {
+        this.pageNotFound_404 = pageNotFound_404;
     }
 }

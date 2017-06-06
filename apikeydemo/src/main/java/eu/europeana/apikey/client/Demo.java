@@ -31,6 +31,7 @@ public class Demo {
     private String remaining;
     private String secondsToReset;
     private String message = null;
+    private boolean pageNotFound_404 = false;
 
     public String getApi() {
         return StringUtils.isNotBlank(api) ? api : "";
@@ -84,6 +85,14 @@ public class Demo {
         return message;
     }
 
+    public boolean isPageNotFound_404() {
+        return pageNotFound_404;
+    }
+
+    public void setPageNotFound_404(boolean pageNotFound_404) {
+        this.pageNotFound_404 = pageNotFound_404;
+    }
+
     public void setStatusHumanReadable(){
         switch (status) {
             case "204":
@@ -96,10 +105,10 @@ public class Demo {
                 status += " GONE: this ApiKey is deprecated";
                 break;
             case "404":
-                status += " NOT FOUND: ApiKey does not exist";
+                if (!isPageNotFound_404()) status += " NOT FOUND: ApiKey does not exist";
                 break;
             case "400":
-                status += " BAD REQUEST: silly parameter(s) supplied";
+                status += " BAD REQUEST: bad or missing parameter(s)";
                 break;
             case "200":
                 status += " OK";
@@ -111,7 +120,7 @@ public class Demo {
                 status += " ACCEPTED. Cool.";
                 break;
             default:
-                status += "99.999999999999999999 +++ OUT OF CHEESE ERROR +++ REDO FROM START +++";
+                status += "99.999999999999999999 +++ STRAWBERRY DISCOLOURATION ERROR +++ REINSTALL AND REBOOT +++";
         }
     }
 
