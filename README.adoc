@@ -26,7 +26,7 @@ following methods:
 `204` (apikey valid); `400` (bad Request: missing or wrong parameter(s)); `404` (apikey not found _OR_ Apikeyservice not
 found => see isPageNotFound_404); `410` (apikey deprecated) or `429` (request quota reached)
 * getRemaining() (Integer): the remaining number of requests left for this period
-* getSecondsToReset(Integer): the number of seconds until the request quota is reset
+* getSecondsToReset() (Integer): the number of seconds until the request quota is reset
 * getMessage (String): eventual additional error message
 * hasConnected (boolean):
 * isPageNotFound_404 (boolean): whether a HTTP `404` status is a regular _Page not found_ returned by the webserver,
