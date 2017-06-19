@@ -47,7 +47,7 @@ directory.
 === Apikeydemo
 ==== usage
 
-This is first and foremost intended as a coding example: see the 'demoSubmit` method of the `ClientController` class.
+This is first and foremost intended as a coding example: see the `demoSubmit` method of the `ClientController` class.
 
 The Apikeydemo can also be used to test or demo the Apikeyclient and / or Apikey Service with. It is a Spring Boot &
 Thymeleaf web-app that runs locally on port `8080`, path `/demo`:
@@ -62,11 +62,7 @@ values to test with;
 . `method`: and one to select the _method_ parameter: `read`, `write`, nothing and some other erroneous values.
 
 The demo app uses the `Apikeyclient` classes to connect to the Apikeyservice and displays the results on
-a second page.
-
-You can see how to use the `Apikeyclient` by looking at the `ClientController` and `Demo` java classes in the Apikeydemo app.
-
-Note that the Apikeydemo uses `ApiKey1` and `SecretKey1` as hard-coded values for `adminApikey` and `adminSecretkey`.
+a second page. Note that it uses `ApiKey1` and `SecretKey1` as hard-coded values for `adminApikey` and `adminSecretkey`.
 
 ==== deployment and running the demo
 Build the demo by executing `mvn clean install` and run with `mvn spring-boot:run`. The demo app will be deployed on
