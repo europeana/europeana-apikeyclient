@@ -68,11 +68,11 @@ You can see how to use the `Apikeyclient` by looking at the `ClientController` a
 
 Note that the Apikeydemo uses `ApiKey1` and `SecretKey1` as hard-coded values for `adminApikey` and `adminSecretkey`.
 
+==== deployment and running the demo
+Build the demo by executing `mvn clean install` and run with `mvn spring-boot:run`. The demo app will be deployed on
+http://localhost:8080/demo[http://localhost:8080/demo]
 
 === Requirements
-Check out the project on Github, issue a maven `mvn clean install` for both sub-projects and then run the demo with
- the maven `mvn spring-boot:run` command.
-
 JDK version used: Java 1.8.0.74
 
 
