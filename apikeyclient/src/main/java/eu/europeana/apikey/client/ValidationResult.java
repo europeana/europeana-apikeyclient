@@ -23,11 +23,12 @@ package eu.europeana.apikey.client;
 public class ValidationResult {
 
     private String returnStatus;
-    private String remaining;
-    private String secondsToReset;
+    private Integer remaining;
+    private Integer secondsToReset;
     private String message;
     private boolean connected        = false;
     private boolean pageNotFound_404 = false;
+    private boolean validKey = false;
 
     public String getReturnStatus() {
         return returnStatus;
@@ -37,19 +38,19 @@ public class ValidationResult {
         this.returnStatus = returnStatus;
     }
 
-    public String getRemaining() {
+    public Integer getRemaining() {
         return remaining;
     }
 
-    public void setRemaining(String remaining) {
+    public void setRemaining(int remaining) {
         this.remaining = remaining;
     }
 
-    public String getSecondsToReset() {
+    public Integer getSecondsToReset(){
         return secondsToReset;
     }
 
-    public void setSecondsToReset(String secondsToReset) {
+    public void setSecondsToReset(int secondsToReset) {
         this.secondsToReset = secondsToReset;
     }
 
@@ -76,4 +77,13 @@ public class ValidationResult {
     public void setPageNotFound_404(boolean pageNotFound_404) {
         this.pageNotFound_404 = pageNotFound_404;
     }
+
+    public boolean isValidKey() {
+        return validKey;
+    }
+
+    public void setValidKey(boolean validKey) {
+        this.validKey = validKey;
+    }
+
 }

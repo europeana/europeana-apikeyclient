@@ -56,8 +56,8 @@ public class ClientController {
             ValidationResult result = connector.validateApiKey(request);
             if (result.hasConnected()){
                 if (StringUtils.isNotBlank(result.getReturnStatus())) demo.setStatus(result.getReturnStatus());
-                if (StringUtils.isNotBlank(result.getRemaining())) demo.setRemaining(result.getRemaining());
-                if (StringUtils.isNotBlank(result.getSecondsToReset())) demo.setSecondsToReset(result.getSecondsToReset());
+                if (null != result.getRemaining()) demo.setRemaining(String.valueOf(result.getRemaining()));
+                if (null != result.getSecondsToReset()) demo.setSecondsToReset(String.valueOf(result.getSecondsToReset()));
                 if (StringUtils.isBlank(demo.getApi())) demo.setApi("none");
                 if (StringUtils.isBlank(demo.getMethod())) demo.setMethod("nothing");
                 if (result.isPageNotFound_404()){
