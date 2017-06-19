@@ -17,6 +17,7 @@
 
 package eu.europeana.apikey.client;
 
+import eu.europeana.apikey.client.exception.ApiKeyValidationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,7 +69,7 @@ public class ClientController {
             } else {
                 demo.setMessage("Error: could not connect to ApiKey Service");
             }
-        } catch (IOException e) {
+        } catch (ApiKeyValidationException e) {
             demo.setMessage(e.getMessage());
         }
         return "result";

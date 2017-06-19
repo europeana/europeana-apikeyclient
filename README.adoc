@@ -1,63 +1,78 @@
-== Europeana-Apikeyclient: an apikey-service client & demo app
+== Europeana-Apikeyclient: apikey-service client & demo
 
-.There are two parts to this project:
-. apikeyclient
-. apikeydemo
+This project consists of two parts:
 
-.1) Apikeyclient
-The Apikeyclient consists of three classes:
+* Apikeyclient: a small library intended to provide a unified and transparent way of validating Apikeys
+* Apikeydemo: a Spring Boot & Thymeleaf web-app intended to demonstrate how the Apikeyclient can be used. It can also
+be run locally for testing purposes.
 
-* Connector.java
-* ValidationRequest.java
-* ValidationResult.java
+=== Apikeyclient
+==== how to use the client
 
-The Connector class has one method: `validateApiKey`, accepting a `ValidationRequest`
-as input and returns a `ValidationResult`.
+In order to validate an Apikey you need to supply the following parameters:
 
-The `ValidationRequest` class has two constructors. One accepts all five available parameters:
+* `adminKey` and `adminSecretKey` (a valid *ADMIN* level apikey / secretkey pair);
+* `api` (the API for which the apikey needs to be validated: can be _search_, _entity_ or _annotation_);
+* optionally, `method` (allowable values: _read_ or _write_)
 
-* new ValidationRequest(String `adminApikey`, String `adminSecretkey`, String `apikey`, String `api`,
- String `method`)
+These parameters can be either passed directly into the `validateApiKey()` method of a Connector instance or wrapped in
+a ValidationRequest object using the usual POJO setters.
 
-while the other one omits the `method` parameter.
-You can also set all parameters separately.
-For now  is hard-coded to the currently deployed instance on Pivotal.
+Under normal conditions the Connector instance will return a ValidationResult object. The ValidationResult has the
+following methods:
 
-The ValidationResult class contains the results of the ApiKey service query:
+* isValidKey() (boolean): returns `true` if there were no errors and the Apikey is valid. `false` in any other case
+* getReturnStatus() (String) returns the HTTP status of the Apikey Service's response. Possible values are:
+`204` (apikey valid); `400` (bad Request: missing or wrong parameter(s)); `404` (apikey not found _OR_ Apikeyservice not
+found => see isPageNotFound_404); `410` (apikey deprecated) or `429` (request quota reached)
+* getRemaining() (Integer): the remaining number of requests left for this period
+* getSecondsToReset(): the number of seconds until the request quota is reset
+* getMessage (String): eventual additional error message
+* hasConnected (boolean):
+* isPageNotFound_404 (boolean): whether a HTTP `404` status is a regular _Page not found_ returned by the webserver,
+rather than the Apikey not being found by the Apikey Service
 
-* `returnStatus`: String containting the HTTP Status returned by the Apikeyservice;
-* `remaining`: String representing the number of available request left;
-* `secondsToReset`: String representing the number of seconds until the number of used request is reset;
-* `message`: String containing possible error messages
-* `connected`: whether connecting to the ApiKey service succeeded
+Additionally, if there are technical problems that prevent the request from being fulfilled, an `ApikeyValidationException`
+will be thrown. The getErrorMessage() method returns a brief (one-line) error message; if needed the underlying
+Exception (if any) can be retrieved with the getCause() method.
 
-The Apikeyservice URL is read from the `apikeyserviceurl` property in `resources/config.properties`
+The Apikey Service's URL is stored as the `apikeyserviceurl` property in the Apikeyclient's `config.properties` file in
+the resources directory. Its value is set to https://apikeyservice.cfapps.io/apikey[https://apikeyservice.cfapps.io/apikey] - the currently deployed
+Apikey Service test instance on Pivotal.
 
-.2) Apikeydemo
+==== deployment
+Build the client jar by executing `mvn clean install` - `apikeyclient-{VERSION}.jar` will be available in the `target`
+directory.
 
-This is a Spring Boot & Thymeleaf web-app that runs locally on port 8080, path /demo:
+=== Apikeydemo
+==== usage
+
+This is first and foremost intended as a coding example: see the 'demoSubmit` method of the `ClientController` class.
+
+The Apikeydemo can also be used to test or demo the Apikeyclient and / or Apikey Service with. It is a Spring Boot &
+Thymeleaf web-app that runs locally on port `8080`, path `/demo`:
 
 http://localhost:8080/demo[http://localhost:8080/demo]
 
-It displays a form titled "Apikey Service client demo app" with three dropdown-lists:
+It displays a form titled `Apikey Service client demo app` with three dropdown-lists:
 
-. Apikey: one to select between a number of test Apikeys that exist in the database of the Apikeyservice;
-. api: another one to choose between several (Europeana) Api's, with an empty and some erroneous entries to also test out;
-. method: and one to select the "method" parameter: `read`, `write`, nothing, or some erroneous values.
+. `Apikey`: one to select between a number of _test Apikeys_ that exist in the database of the test `Apikeyservice`;
+. `api`: another one to choose between several _(Europeana) Api's_, with an empty string and some otherwise erroneous
+values to test with;
+. `method`: and one to select the _method_ parameter: `read`, `write`, nothing and some other erroneous values.
 
 The demo app uses the `Apikeyclient` classes to connect to the Apikeyservice and displays the results on
 a second page.
 
 You can see how to use the `Apikeyclient` by looking at the `ClientController` and `Demo` java classes in the Apikeydemo app.
 
-
-Note that for now, the `adminApikey` and `adminSecretkey` are set to `ApiKey1` and `SecretKey`.
+Note that the Apikeydemo uses `ApiKey1` and `SecretKey1` as hard-coded values for `adminApikey` and `adminSecretkey`.
 
 
 === Requirements
 Check out the project on Github, issue a maven `mvn clean install` for both sub-projects and then run the demo with
  the maven `mvn spring-boot:run` command.
 
-You will most likely need Java 8.
+JDK version used: Java 1.8.0.74
 
 

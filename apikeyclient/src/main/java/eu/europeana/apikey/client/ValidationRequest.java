@@ -20,6 +20,10 @@ package eu.europeana.apikey.client;
 /**
  * Created by luthien on 11/05/2017.
  */
+
+/**
+ *  Wrapper object for the parameters needed to validate an Apikey
+ */
 public class ValidationRequest {
 
     private String api;
@@ -40,42 +44,56 @@ public class ValidationRequest {
         setMethod(method);
     }
 
-    public String getApi() {
+    String getApi() {
         return api;
     }
 
+    /*
+     * @param api (String) identifier of the API the apikey needs to be validated for (either 'search', 'entity' or 'annotation')
+     */
     public void setApi(String api) {
         this.api = api;
     }
 
-    public String getMethod() {
+    String getMethod() {
         return method;
     }
 
+    /*
+     * @param method (String) (optional) identifier of method the apikey needs to be validated for (either 'read' or 'write')
+     */
     public void setMethod(String method) {
         this.method = method;
     }
 
-    public String getAdminApikey() {
+    String getAdminApikey() {
         return adminApikey;
     }
 
+    /*
+     * @param adminApikey (String) ADMIN level apikey, required to authorise request to the apikey service
+     */
     public void setAdminApikey(String adminApikey) {
         this.adminApikey = adminApikey;
     }
 
-    public String getAdminSecretkey() {
+    String getAdminSecretkey() {
         return adminSecretkey;
     }
 
+    /*
+     * @param adminSecretkey (String) secret key of the ADMIN level apikey, required to authenticate that apikey
+     */
     public void setAdminSecretkey(String adminSecretkey) {
         this.adminSecretkey = adminSecretkey;
     }
 
-    public String getApikey() {
+    String getApikey() {
         return apikey;
     }
-
+    /*
+     * @param apikey (String) apikey to be validated
+     */
     public void setApikey(String apikey) {
         this.apikey = apikey;
     }
