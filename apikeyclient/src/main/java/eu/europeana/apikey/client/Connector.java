@@ -163,7 +163,7 @@ import java.util.Properties;
      */
     public ValidationResult validateApiKey(String adminKey, String adminSecretKey, String apikey, String api)
             throws ApiKeyValidationException {
-        return validateApiKey(adminKey, adminSecretKey, apikey, api, null);
+        return validateApiKey(new ValidationRequest(adminKey, adminSecretKey, apikey, api));
     }
 
 
