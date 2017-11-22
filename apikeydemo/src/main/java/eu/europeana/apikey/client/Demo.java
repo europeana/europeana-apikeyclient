@@ -117,10 +117,10 @@ public class Demo {
                 status += " I'M A TEAPOT... glurgl";
                 break;
             case "202":
-                status += " ACCEPTED. Cool.";
+                status += " ACCEPTED. In a manner of speaking.";
                 break;
             default:
-                status += "99.999999999999999999 +++ STRAWBERRY DISCOLOURATION ERROR +++ REINSTALL AND REBOOT +++";
+                status += ".999999999999999999999 +++ INEXCUSABLE DISCOLOURATION ERROR +++ REINSTALL AND REBOOT +++";
         }
     }
 

@@ -37,16 +37,10 @@ public class PropertyReader {
 
     private PropertyReader() throws ApiKeyValidationException {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName)) {
-            Properties prop = new Properties();
-
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new ApiKeyValidationException("Error: property file '" + propFileName + "' not found in the classpath");
-            }
-
-            apiKeyServiceUrl = prop.getProperty("apikeyserviceurl");
-
+            props = new Properties();
+            if (inputStream != null) props.load(inputStream);
+            else throw new ApiKeyValidationException("Error: property file '" + propFileName + "' not found in the classpath");
+            apiKeyServiceUrl = props.getProperty("apikeyserviceurl");
         } catch (IOException e) {
             throw new ApiKeyValidationException("IOException thrown when trying to read 'apikeyserviceurl' property " +
                     "from property file " + propFileName, e);

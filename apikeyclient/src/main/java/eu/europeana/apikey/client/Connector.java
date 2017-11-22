@@ -19,6 +19,7 @@ package eu.europeana.apikey.client;
 
 import eu.europeana.apikey.client.exception.ApiKeyValidationException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -27,17 +28,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by luthien on 11/05/2017.
@@ -81,7 +78,8 @@ import java.util.Properties;
 
         String auth = validationRequest.getAdminApikey() + ":" + validationRequest.getAdminSecretkey();
         byte[] encodedAuth = Base64.encodeBase64(
-                auth.getBytes(Charset.forName("ISO-8859-1")));
+                auth.getBytes(Charset.forName("UTF-8")));
+//                auth.getBytes(Charset.forName("ISO-8859-1")));
 
         String authHeader = "Basic " + new String(encodedAuth);
         request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
