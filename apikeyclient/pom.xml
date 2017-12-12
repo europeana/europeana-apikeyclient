@@ -4,19 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eu.europeana</groupId>
-    <artifactId>apikeyclient</artifactId>
+    <groupId>eu.europeana.apikey-utils</groupId>
+    <artifactId>apikey-client</artifactId>
     <version>0.1-SNAPSHOT</version>
 
     <parent>
         <groupId>eu.europeana</groupId>
-        <artifactId>europeana-apikeyclient</artifactId>
+        <artifactId>apikey-utils</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>Apikey client</name>
-    <description>Client package providing functionality to facilitate interacting with the central Apikey Service</description>
+    <name>Apikey client library</name>
+    <description>Classes providing functionality to facilitate interacting with the central Apikey Service</description>
 
     <dependencies>
         <dependency>

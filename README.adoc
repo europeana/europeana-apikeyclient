@@ -37,8 +37,8 @@ will be thrown. The getErrorMessage() method returns a brief (one-line) error me
 Exception (if any) can be retrieved with the getCause() method.
 
 The Apikey Service's URL is stored as the `apikeyserviceurl` property in the Apikeyclient's `config.properties` file in
-the resources directory. Its value is set to https://apikeyservice.cfapps.io/apikey[https://apikeyservice.cfapps.io/apikey] - the currently deployed
-Apikey Service test instance on Pivotal.
+the resources directory. Its value is set to https://apikey-test.eanadev.org/apikey[https://apikey-test.eanadev.org/apikey] - the currently deployed
+Apikey Service test instance on Bluemix.
 
 ==== deployment
 Build the client jar by executing `mvn clean install` - `apikeyclient-{VERSION}.jar` will be available in the `target`

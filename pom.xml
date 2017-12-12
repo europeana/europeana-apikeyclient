@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.europeana</groupId>
-    <artifactId>europeana-apikeyclient</artifactId>
+    <artifactId>apikey-utils</artifactId>
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
 
-    <name>Apikey client</name>
-    <description>Client package providing functionality to interact with the central Apikey Service and a Spring Boot demo</description>
+    <name>Apikey utils</name>
+    <description>Utils package providing functionality to interact with the central Apikey Service and a Spring Boot demo</description>
 
     <modules>
         <module>apikeydemo</module>
