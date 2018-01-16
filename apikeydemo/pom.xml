@@ -6,7 +6,7 @@
 
     <groupId>eu.europeana.apikey-utils</groupId>
     <artifactId>apikey-demo</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <name>Apikey client demo</name>
     <description>Spring Boot demo application providing an example how to use the Apikey Client package</description>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>eu.europeana.apikey-utils</groupId>
             <artifactId>apikey-client</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
