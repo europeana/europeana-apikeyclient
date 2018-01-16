@@ -5,7 +5,7 @@
     <groupId>eu.europeana</groupId>
     <artifactId>apikey-utils</artifactId>
     <packaging>pom</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
     <parent>
         <artifactId>europeana-parent-pom</artifactId>
@@ -42,7 +42,7 @@
         <connection>scm:git:git@github.com:europeana/europeana-apikeyclient.git</connection>
         <developerConnection>scm:git:git@github.com:europeana/europeana-apikeyclient.git</developerConnection>
         <url>https://github.com/europeana/europeana-apikeyclient</url>
-        <tag>HEAD</tag>
+        <tag>apikey-utils-1.1</tag>
     </scm>
 
 </project>
