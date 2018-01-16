@@ -4,12 +4,12 @@
 
     <groupId>eu.europeana.apikey-utils</groupId>
     <artifactId>apikey-client</artifactId>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
 
     <parent>
         <groupId>eu.europeana</groupId>
         <artifactId>apikey-utils</artifactId>
-        <version>1.1</version>
+        <version>1.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
