@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.europeana</groupId>
     <artifactId>apikey-utils</artifactId>
     <packaging>pom</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.2</version>
+
+    <parent>
+        <artifactId>europeana-parent-pom</artifactId>
+        <groupId>eu.europeana</groupId>
+        <version>1.7</version>
+    </parent>
 
     <name>Apikey utils</name>
     <description>Utils package providing functionality to interact with the central Apikey Service and a Spring Boot demo</description>
@@ -20,5 +24,25 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>artifactory.eanadev.org</id>
+            <name>artifactory.eanadev.org-releases</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory.eanadev.org</id>
+            <name>artifactory.eanadev.org-snapshots</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git@github.com:europeana/europeana-apikeyclient.git</connection>
+        <developerConnection>scm:git:git@github.com:europeana/europeana-apikeyclient.git</developerConnection>
+        <url>https://github.com/europeana/europeana-apikeyclient</url>
+        <tag>HEAD</tag>
+    </scm>
 
 </project>

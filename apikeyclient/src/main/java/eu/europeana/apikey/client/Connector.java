@@ -54,8 +54,7 @@ import java.util.List;
      *
      * @param validationRequest object
      * @return ValidationResult object
-     * @throws IOException
-     * @throws NumberFormatException
+     * @throws ApiKeyValidationException
      */
 
     public ValidationResult validateApiKey(ValidationRequest validationRequest) throws ApiKeyValidationException {
@@ -143,7 +142,6 @@ import java.util.List;
      * @return ValidationResult object
      * @throws ApiKeyValidationException
      */
-
     public ValidationResult validateApiKey(String adminKey, String adminSecretKey, String apikey, String api, String method)
             throws ApiKeyValidationException {
         return validateApiKey(new ValidationRequest(adminKey, adminSecretKey, apikey, api, method));
