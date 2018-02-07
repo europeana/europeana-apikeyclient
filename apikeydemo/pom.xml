@@ -4,7 +4,7 @@
 
     <groupId>eu.europeana.apikey-utils</groupId>
     <artifactId>apikey-demo</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
 
     <name>Apikey client demo</name>
     <description>Spring Boot demo application providing an example how to use the Apikey Client package</description>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>eu.europeana.apikey-utils</groupId>
             <artifactId>apikey-client</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -86,4 +86,8 @@
             <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
+
+  <scm>
+    <tag>apikey-utils-1.2</tag>
+  </scm>
 </project>
