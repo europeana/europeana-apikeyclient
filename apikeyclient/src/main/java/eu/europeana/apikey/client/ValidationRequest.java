@@ -51,7 +51,7 @@ public class ValidationRequest {
     /*
      * @param api (String) identifier of the API the apikey needs to be validated for (either 'search', 'entity' or 'annotation')
      */
-    public void setApi(String api) {
+    public final void setApi(String api) {
         this.api = api;
     }
 
@@ -62,7 +62,7 @@ public class ValidationRequest {
     /*
      * @param method (String) (optional) identifier of method the apikey needs to be validated for (either 'read' or 'write')
      */
-    public void setMethod(String method) {
+    public final void setMethod(String method) {
         this.method = method;
     }
 
@@ -73,7 +73,7 @@ public class ValidationRequest {
     /*
      * @param adminApikey (String) ADMIN level apikey, required to authorise request to the apikey service
      */
-    public void setAdminApikey(String adminApikey) {
+    public final void setAdminApikey(String adminApikey) {
         this.adminApikey = adminApikey;
     }
 
@@ -84,7 +84,7 @@ public class ValidationRequest {
     /*
      * @param adminSecretkey (String) secret key of the ADMIN level apikey, required to authenticate that apikey
      */
-    public void setAdminSecretkey(String adminSecretkey) {
+    public final void setAdminSecretkey(String adminSecretkey) {
         this.adminSecretkey = adminSecretkey;
     }
 
@@ -94,7 +94,7 @@ public class ValidationRequest {
     /*
      * @param apikey (String) apikey to be validated
      */
-    public void setApikey(String apikey) {
+    public final void setApikey(String apikey) {
         this.apikey = apikey;
     }
 

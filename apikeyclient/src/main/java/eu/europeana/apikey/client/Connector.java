@@ -29,6 +29,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -43,7 +45,8 @@ import java.util.List;
 /**
  * Utility to facilitate connecting to the Apikey Service and checking Apikeys for validity
  */
- public class Connector {
+public class Connector {
+    private static final Logger LOG = LogManager.getLogger(Connector.class);
 
     /**
      * Takes a ValidationRequest object containing the authentication details, the apikey to be checked, the calling API
@@ -58,75 +61,76 @@ import java.util.List;
      */
 
     public ValidationResult validateApiKey(ValidationRequest validationRequest) throws ApiKeyValidationException {
+        LOG.debug("Validate Apikey");
         ValidationResult validationResult = new ValidationResult();
-        String apiKeyServiceUrl = PropertyReader.getInstance().getApiKeyServiceUrl();
-        String requestUrl = apiKeyServiceUrl + "/" + validationRequest.getApikey() + "/validate";
+        String           apiKeyServiceUrl = PropertyReader.getInstance().getApiKeyServiceUrl();
+        String           requestUrl       = apiKeyServiceUrl + "/" + validationRequest.getApikey() + "/validate";
 
         List<NameValuePair> params = new ArrayList<>(2);
         params.add(new BasicNameValuePair("api", validationRequest.getApi()));
         if (StringUtils.isNotBlank(validationRequest.getMethod())) {
             params.add(new BasicNameValuePair("method", validationRequest.getMethod()));
         }
-
         HttpPost request = new HttpPost(requestUrl);
         try {
+
             request.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new ApiKeyValidationException("UnsupportedEncodingException thrown when creating HTTP request", e);
-        }
 
-        String auth = validationRequest.getAdminApikey() + ":" + validationRequest.getAdminSecretkey();
-        byte[] encodedAuth = Base64.encodeBase64(
-                auth.getBytes(Charset.forName("UTF-8")));
-//                auth.getBytes(Charset.forName("ISO-8859-1")));
+            String auth = validationRequest.getAdminApikey() + ":" + validationRequest.getAdminSecretkey();
+            byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("UTF-8")));
+            String authHeader = "Basic " + new String(encodedAuth);
+            request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
 
-        String authHeader = "Basic " + new String(encodedAuth);
-        request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
+            HttpClient   client = HttpClientBuilder.create().build();
+            HttpResponse response;
 
-        HttpClient   client   = HttpClientBuilder.create().build();
-        HttpResponse response;
-
-        try {
             response = client.execute(request);
-        } catch (IOException e) {
-            validationResult.setConnected(false);
-            throw new ApiKeyValidationException("IOexception thrown while trying to connect to Apikeyservice", e);
-        }
-        if (response != null) validationResult.setConnected(true);
 
-        if (validationResult.hasConnected()) {
-            validationResult.setReturnStatus(String.valueOf(response.getStatusLine().getStatusCode()));
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT){
-                validationResult.setValidKey(true);
+            if (null != response) {
+                validationResult.setConnected(true);
+            } else {
+                validationResult.setConnected(false);
+                LOG.error("Could not connect to Apikeyservice");
+                throw new ApiKeyValidationException("Could not connect to Apikeyservice");
             }
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_NOT_FOUND &&
-                    !response.containsHeader("Apikey-not-found")){
-                validationResult.setPageNotFound_404(true);
-                validationResult.setValidKey(false);
-                throw new ApiKeyValidationException("Apikey service was not found on URL " + apiKeyServiceUrl);
-            }
-            if (response.containsHeader("X-Ratelimit-Remaining")) {
-                try {
+
+            if (validationResult.hasConnected()) {
+                LOG.debug("Connected to Apikeyservice");
+                validationResult.setReturnStatus(String.valueOf(response.getStatusLine().getStatusCode()));
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT) {
+                    validationResult.setValidKey(true);
+                }
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_NOT_FOUND &&
+                    !response.containsHeader("Apikey-not-found")) {
+                    validationResult.setPageNotFound_404(true);
+                    validationResult.setValidKey(false);
+                    LOG.error("Could not connect to Apikey service on URL {}", apiKeyServiceUrl);
+                    throw new ApiKeyValidationException("Apikey service was not found on URL " + apiKeyServiceUrl);
+                }
+                if (response.containsHeader("X-Ratelimit-Remaining")) {
                     validationResult.setRemaining(Integer.valueOf(
                             response.getFirstHeader("X-Ratelimit-Remaining").getValue()));
-                } catch (NumberFormatException e) {
-                    String errorMessage = "Error parsing integer value for X-Ratelimit-Remaining";
-                    validationResult.setMessage(errorMessage);
-                    validationResult.setValidKey(false);
-                    throw new ApiKeyValidationException(errorMessage, e);
                 }
-            }
-            if (response.containsHeader("X-Ratelimit-Reset")) {
-                try {
+                if (response.containsHeader("X-Ratelimit-Reset")) {
                     validationResult.setSecondsToReset(Integer.valueOf(
                             response.getFirstHeader("X-Ratelimit-Reset").getValue()));
-                } catch (NumberFormatException e) {
-                    String errorMessage = "Error parsing integer value for X-Ratelimit-Reset";
-                    validationResult.setMessage(errorMessage);
-                    validationResult.setValidKey(false);
-                    throw new ApiKeyValidationException(errorMessage, e);
                 }
             }
+        } catch (UnsupportedEncodingException e) {
+            LOG.error("UnsupportedEncodingException thrown when creating HTTP request", e);
+            throw new ApiKeyValidationException("UnsupportedEncodingException thrown when creating HTTP request", e);
+        } catch (IOException e) {
+            validationResult.setConnected(false);
+            LOG.error("IOException thrown while trying to connect to Apikeyservice", e);
+            throw new ApiKeyValidationException("IOexception thrown while trying to connect to Apikeyservice", e);
+        } catch (NumberFormatException e) {
+            LOG.error("Error parsing integer value", e);
+            String errorMessage = "Error parsing integer value";
+            validationResult.setMessage(errorMessage);
+            validationResult.setValidKey(false);
+            throw new ApiKeyValidationException(errorMessage, e);
+        } finally {
+            request.reset();
         }
         return validationResult;
     }
@@ -142,8 +146,11 @@ import java.util.List;
      * @return ValidationResult object
      * @throws ApiKeyValidationException
      */
-    public ValidationResult validateApiKey(String adminKey, String adminSecretKey, String apikey, String api, String method)
-            throws ApiKeyValidationException {
+    public ValidationResult validateApiKey(String adminKey,
+                                           String adminSecretKey,
+                                           String apikey,
+                                           String api,
+                                           String method) throws ApiKeyValidationException {
         return validateApiKey(new ValidationRequest(adminKey, adminSecretKey, apikey, api, method));
     }
 
@@ -157,11 +164,10 @@ import java.util.List;
      * @return ValidationResult object
      * @throws ApiKeyValidationException
      */
-    public ValidationResult validateApiKey(String adminKey, String adminSecretKey, String apikey, String api)
-            throws ApiKeyValidationException {
+    public ValidationResult validateApiKey(String adminKey, String adminSecretKey, String apikey, String api) throws
+                                                                                                              ApiKeyValidationException {
         return validateApiKey(new ValidationRequest(adminKey, adminSecretKey, apikey, api));
     }
-
 
 
 }
