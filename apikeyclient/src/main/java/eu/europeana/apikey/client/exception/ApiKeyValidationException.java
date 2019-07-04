@@ -5,8 +5,12 @@ package eu.europeana.apikey.client.exception;
  */
 public class ApiKeyValidationException extends Exception {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6387090087297106543L;
     private final String errorMessage;
-
+    
     public ApiKeyValidationException (String errorMessage){
         this.errorMessage = errorMessage;
     }

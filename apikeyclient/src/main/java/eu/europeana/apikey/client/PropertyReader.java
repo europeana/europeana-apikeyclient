@@ -24,11 +24,9 @@ public class PropertyReader {
             props = new Properties();
             if (inputStream != null) { props.load(inputStream); }
             else {
-                LOG.error("Could not find property file");
                 throw new ApiKeyValidationException("Error: property file '" + propFileName + "' not found in the classpath");
             }
         } catch (IOException e) {
-            LOG.error("Could not read property file");
             throw new ApiKeyValidationException("IOException thrown when trying to read 'apikeyserviceurl' property " +
                     "from property file " + propFileName, e);
         }

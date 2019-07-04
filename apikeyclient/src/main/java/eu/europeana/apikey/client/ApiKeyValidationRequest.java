@@ -2,12 +2,16 @@ package eu.europeana.apikey.client;
 
 /**
  * Created by luthien on 11/05/2017.
+ * @author GordeaS
  */
 
 /**
  *  Wrapper object for the parameters needed to validate an Apikey
- */
-public class ValidationRequest {
+ *  
+ *  @Deprecated not used by the client anymore, still it may be used when other methods are added 
+ */ 
+@Deprecated
+public class ApiKeyValidationRequest {
 
     private String api;
     private String method;
@@ -15,14 +19,14 @@ public class ValidationRequest {
     private String adminSecretkey;
     private String apikey;
 
-    public ValidationRequest(String adminApikey, String adminSecretkey, String apikey, String api){
+    public ApiKeyValidationRequest(String adminApikey, String adminSecretkey, String apikey, String api){
         setAdminApikey(adminApikey);
         setAdminSecretkey(adminSecretkey);
         setApikey(apikey);
         setApi(api);
     }
 
-    public ValidationRequest(String adminApikey, String adminSecretkey, String apikey, String api, String method){
+    public ApiKeyValidationRequest(String adminApikey, String adminSecretkey, String apikey, String api, String method){
         this(adminApikey, adminSecretkey, apikey, api);
         setMethod(method);
     }
