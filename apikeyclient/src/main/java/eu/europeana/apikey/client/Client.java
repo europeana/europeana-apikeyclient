@@ -17,12 +17,14 @@ import eu.europeana.apikey.client.exception.ApiKeyValidationException;
  * @author GordeaS
  *
  *         Utility to facilitate connecting to the Apikey Service and checking
- *         Apikeys for validity
+ *         validity of Apikeys. For performance reasons it is adviced that Applications instatiate this class once for a given URL (service endpoint).
  */
 public class Client {
     private static final Logger LOG = LogManager.getLogger(Client.class);
     private static final String AUTHETICATION_APIKEY_PREFIX = "APIKEY ";
     String apiKeyServiceUrl;
+    private HttpClient client;
+	
 
     public Client() {
 
@@ -49,8 +51,7 @@ public class Client {
 	HttpResponse response;
 
 	try {
-	    HttpClient client = HttpClientBuilder.create().build();
-	    response = client.execute(request);
+	    response = getHttpClient().execute(request);
 
 	    // not sure if occurs
 	    if (response == null) {
@@ -80,10 +81,18 @@ public class Client {
 	return validationResult;
     }
 
+    private HttpClient getHttpClient() {
+	if(client == null) {
+	    client = HttpClientBuilder.create().build();
+	}
+	return client;
+    }
+
     protected String getApiKeyServiceUrl() throws ApiKeyValidationException {
 	//if default constructor was used, take the url from configs
-	if(apiKeyServiceUrl == null)
+	if(apiKeyServiceUrl == null) {
 	    apiKeyServiceUrl = PropertyReader.getInstance().getApiKeyServiceUrl();
+	}
 	return apiKeyServiceUrl;
     }
 }
