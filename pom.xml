@@ -5,13 +5,7 @@
     <groupId>eu.europeana</groupId>
     <artifactId>apikey-utils</artifactId>
     <packaging>pom</packaging>
-    <version>1.3-SNAPSHOT</version>
-
-    <parent>
-        <artifactId>europeana-parent-pom</artifactId>
-        <groupId>eu.europeana</groupId>
-        <version>1.7</version>
-    </parent>
+    <version>1.4-SNAPSHOT</version>
 
     <name>Apikey utils</name>
     <description>Utils package providing functionality to interact with the central Apikey Service and a Spring Boot demo</description>
