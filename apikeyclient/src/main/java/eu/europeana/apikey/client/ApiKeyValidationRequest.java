@@ -8,9 +8,9 @@ package eu.europeana.apikey.client;
 /**
  *  Wrapper object for the parameters needed to validate an Apikey
  *  
- *  @Deprecated not used by the client anymore, still it may be used when other methods are added 
+ *  Deprecation message: this class is not used by the client anymore, still it may be used when other methods are added 
  */ 
-@Deprecated
+@Deprecated 
 public class ApiKeyValidationRequest {
 
     private String api;
