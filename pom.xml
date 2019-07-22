@@ -11,12 +11,16 @@
     <description>Utils package providing functionality to interact with the central Apikey Service and a Spring Boot demo</description>
 
     <modules>
+    <!-- SG: apikey demo is deprecated and likely not to be supported in the future
         <module>apikeydemo</module>
+     -->
         <module>apikeyclient</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <distributionManagement>
@@ -39,4 +43,19 @@
         <tag>HEAD</tag>
     </scm>
 
+ 	<build>
+        <!-- configure plugins -->
+        <plugins>
+            <plugin>
+                <inherited>true</inherited>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
