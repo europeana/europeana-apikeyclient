@@ -11,9 +11,7 @@
     <description>Utils package providing functionality to interact with the central Apikey Service and a Spring Boot demo</description>
 
     <modules>
-    <!-- SG: apikey demo is deprecated and likely not to be supported in the future
         <module>apikeydemo</module>
-     -->
         <module>apikeyclient</module>
     </modules>
 
