@@ -1,19 +1,16 @@
 package eu.europeana.apikey.client;
 
-import eu.europeana.apikey.client.exception.ApiKeyValidationException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import eu.europeana.apikey.client.exception.ApiKeyValidationException;
 
 /**
  * Created by luthien on 14/06/2017.
  */
 public class PropertyReader {
 
-    private static final Logger         LOG      = LogManager.getLogger(PropertyReader.class);
     private static       PropertyReader instance = null;
 
     private Properties props = null;
