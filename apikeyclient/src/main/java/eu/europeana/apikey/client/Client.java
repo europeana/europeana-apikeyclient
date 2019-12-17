@@ -6,6 +6,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,7 +51,7 @@ public class Client {
 
 	HttpPost request = new HttpPost(requestUrl);
 	request.setHeader(HttpHeaders.AUTHORIZATION, AUTHETICATION_APIKEY_PREFIX + apikey);
-
+	
 	try (CloseableHttpResponse response = getHttpClient().execute(request)) {
 
 	    // not sure if occurs
@@ -89,7 +90,7 @@ public class Client {
 	    //TODO: make these configurable when needed
 	    cm.setMaxTotal(100);
 	    cm.setDefaultMaxPerRoute(50);
-	    client = HttpClients.custom().setConnectionManager(cm).build();
+	    client = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).setConnectionManager(cm).build();
 	}
 	return client;
     }
