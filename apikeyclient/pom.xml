@@ -8,7 +8,7 @@
     <parent>
         <groupId>eu.europeana</groupId>
         <artifactId>apikey-utils</artifactId>
-        <version>1.4-SNAPSHOT</version>
+        <version>1.4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
