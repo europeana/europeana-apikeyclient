@@ -1,29 +1,28 @@
 package eu.europeana.apikey.client;
 
-import eu.europeana.apikey.client.exception.ApiKeyValidationException;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import eu.europeana.apikey.client.exception.ApiKeyValidationException;
 
 /**
  * Created by luthien on 14/06/2017.
  */
 public class PropertyReader {
 
-    private static PropertyReader instance = null;
+    private static       PropertyReader instance = null;
 
     private Properties props = null;
-    private String apiKeyServiceUrl = "";
     String propFileName = "config.properties";
 
     private PropertyReader() throws ApiKeyValidationException {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName)) {
+        try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(propFileName)) {
             props = new Properties();
-            if (inputStream != null) props.load(inputStream);
-            else throw new ApiKeyValidationException("Error: property file '" + propFileName + "' not found in the classpath");
-            apiKeyServiceUrl = props.getProperty("apikeyserviceurl");
+            if (inputStream != null) { props.load(inputStream); }
+            else {
+                throw new ApiKeyValidationException("Error: property file '" + propFileName + "' not found in the classpath");
+            }
         } catch (IOException e) {
             throw new ApiKeyValidationException("IOException thrown when trying to read 'apikeyserviceurl' property " +
                     "from property file " + propFileName, e);

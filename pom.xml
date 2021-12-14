@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.europeana</groupId>
     <artifactId>apikey-utils</artifactId>
+    <version>1.5-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <version>1.2</version>
-
-    <parent>
-        <artifactId>europeana-parent-pom</artifactId>
-        <groupId>eu.europeana</groupId>
-        <version>1.7</version>
-    </parent>
 
     <name>Apikey utils</name>
     <description>Utils package providing functionality to interact with the central Apikey Service and a Spring Boot demo</description>
 
     <modules>
+        <!-- 
         <module>apikeydemo</module>
+         -->
         <module>apikeyclient</module>
     </modules>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <scm>
+        <connection>scm:git:git@github.com:europeana/europeana-apikeyclient.git</connection>
+        <developerConnection>scm:git:git@github.com:europeana/europeana-apikeyclient.git</developerConnection>
+        <url>https://github.com/europeana/europeana-apikeyclient</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <distributionManagement>
         <repository>
@@ -38,11 +38,25 @@
         </snapshotRepository>
     </distributionManagement>
 
-    <scm>
-        <connection>scm:git:git@github.com:europeana/europeana-apikeyclient.git</connection>
-        <developerConnection>scm:git:git@github.com:europeana/europeana-apikeyclient.git</developerConnection>
-        <url>https://github.com/europeana/europeana-apikeyclient</url>
-        <tag>HEAD</tag>
-    </scm>
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
+ 	<build>
+        <!-- configure plugins -->
+        <plugins>
+            <plugin>
+                <inherited>true</inherited>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
